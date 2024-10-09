@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingredient Inventory</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        input, button {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ingredient Inventory</h1>
+
+    <h2>Current Inventory</h2>
+    <ul id="ingredient-list"></ul>
+
+    <h2>Add New Ingredient</h2>
+    <form id="add-ingredient-form">
+        <input type="text" id="ingredient_name" placeholder="Ingredient name" required><br>
+        <input type="number" id="quantity" placeholder="Quantity" required><br>
+        <input type="text" id="unit" placeholder="Unit (g, ml, etc.)" required><br>
+        <input type="date" id="expiry_date" required><br>
+        <button type="submit">Add Ingredient</button>
+    </form>
+
+    <script src="/public/main.js"></script>
+</body>
+</html>
