@@ -236,58 +236,6 @@
     "cheap_score": 4,
     "eco_score": 4,
     "allergens": "Gluten, Dairy, Eggs"
-  },
-  {
-    "name": "Quinoa Salad",
-    "ingredients": "1 cup cooked quinoa, 1 bell pepper, 1 cucumber, 1/4 red onion, parsley, lemon juice",
-    "quantity": "Serves 4",
-    "description": "Cook quinoa, chop vegetables, mix with olive oil and lemon.",
-    "course": "salad",
-    "diet": "vegan",
-    "health_score": 5,
-    "easy_score": 5,
-    "cost_score": 4,
-    "environment_score": 5,
-    "allergies": "None"
-  },
-  {
-    "name": "Stuffed Bell Peppers",
-    "ingredients": "Bell peppers, rice, black beans, corn, cheese",
-    "quantity": "4 bell peppers, 1 cup rice, 1 cup black beans, 1 cup corn, 1 cup cheese",
-    "description": "Stuff bell peppers with a mixture of rice, beans, corn, and cheese, then bake.",
-    "course": "main",
-    "diet": "vegetarian",
-    "health_score": 4,
-    "easy_score": 3,
-    "cost_score": 3,
-    "environment_score": 4,
-    "allergies": "Dairy"
-  },
-  {
-    "name": "Chocolate Mousse",
-    "ingredients": "Dark chocolate, eggs, sugar, cream",
-    "quantity": "200g dark chocolate, 3 eggs, 50g sugar, 200ml cream",
-    "description": "Melt chocolate, whisk eggs with sugar, fold in whipped cream.",
-    "course": "dessert",
-    "diet": "vegetarian",
-    "health_score": 3,
-    "easy_score": 4,
-    "cost_score": 3,
-    "environment_score": 3,
-    "allergies": "Eggs, Dairy"
-  },
-  {
-    "name": "Caprese Salad",
-    "ingredients": "Mozzarella, tomatoes, basil, olive oil, balsamic vinegar",
-    "quantity": "200g mozzarella, 4 tomatoes, 1 bunch basil, 2 tbsp olive oil, 1 tbsp balsamic vinegar",
-    "description": "Layer mozzarella, tomatoes, and basil, drizzle with olive oil and vinegar.",
-    "course": "salad",
-    "diet": "vegetarian",
-    "health_score": 4,
-    "easy_score": 5,
-    "cost_score": 4,
-    "environment_score": 4,
-    "allergies": "Dairy"
   }
   ]
 

@@ -1,24 +1,78 @@
-<!-- home.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Recipe Search</title>
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Welcome, {{ username }}!</h1>
-        <h2>Your Recipes</h2>
-        <ul class="list-group">
+    <!-- Welcome message and logout button -->
+    <div>
+        <h2>Welcome, {{ session['username'] }}</h2>
+        <a href="{{ url_for('logout') }}">Logout</a>
+            <!-- Link to view favorites -->
+    <a href="{{ url_for('favorites') }}">View Favorites</a>
+    </div>
+
+    <h1>Recipes</h1>
+
+    <!-- Form for searching and filtering recipes -->
+    <form method="GET" action="{{ url_for('home') }}">
+        <!-- Search bar: search by recipe name or ingredient -->
+        <input type="text" name="search" placeholder="Search by recipe name or ingredient" value="{{ request.args.get('search', '') }}">
+
+        {% set is_vegan_checked = request.args.get('is_vegan') %}
+        {% set is_vegetarian_checked = request.args.get('is_vegetarian') %}
+
+        <!-- Checkboxes for vegan and vegetarian filters -->
+        <label><input type="checkbox" name="is_vegan" {% if is_vegan_checked %}checked="checked"{% endif %}> Vegan</label><br>
+        <label><input type="checkbox" name="is_vegetarian" {% if is_vegetarian_checked %}checked="checked"{% endif %}> Vegetarian</label><br>
+
+
+
+
+        <!-- Checkboxes for recipe type filters -->
+        <label><input type="checkbox" name="type" value="starter" {% if is_starter_checked %}checked="checked"{% endif %}> Starter</label><br>
+        <label><input type="checkbox" name="type" value="main" {% if is_main_checked %}checked="checked"{% endif %}> Main</label><br>
+        <label><input type="checkbox" name="type" value="dessert" {% if is_dessert_checked %}checked="checked"{% endif %}> Dessert</label><br>
+
+
+        <!-- Score filters: health, ease, cost, eco (from 1 to 5) -->
+        <label for="health_score_min">Health score:</label>
+        <input type="number" name="health_score_min" min="1" max="5" placeholder="Min" value="{{ request.args.get('health_score_min', '') }}">
+        <input type="number" name="health_score_max" min="1" max="5" placeholder="Max" value="{{ request.args.get('health_score_max', '') }}">
+
+        <label for="easy_score_min">Ease score:</label>
+        <input type="number" name="easy_score_min" min="1" max="5" placeholder="Min" value="{{ request.args.get('easy_score_min', '') }}">
+        <input type="number" name="easy_score_max" min="1" max="5" placeholder="Max" value="{{ request.args.get('easy_score_max', '') }}">
+
+        <label for="cheap_score_min">Cost score:</label>
+        <input type="number" name="cheap_score_min" min="1" max="5" placeholder="Min" value="{{ request.args.get('cheap_score_min', '') }}">
+        <input type="number" name="cheap_score_max" min="1" max="5" placeholder="Max" value="{{ request.args.get('cheap_score_max', '') }}">
+
+        <label for="eco_score_min">Eco score:</label>
+        <input type="number" name="eco_score_min" min="1" max="5" placeholder="Min" value="{{ request.args.get('eco_score_min', '') }}">
+        <input type="number" name="eco_score_max" min="1" max="5" placeholder="Max" value="{{ request.args.get('eco_score_max', '') }}">
+
+        <!-- Submit button -->
+        <button type="submit">Search</button>
+        <!-- Reset button to clear all filters -->
+        <a href="{{ url_for('home') }}">Reset</a>
+    </form>
+
+<!-- List of recipes or message if no recipe found -->
+    <div>
+        {% if recipes %}
             {% for recipe in recipes %}
-                <li class="list-group-item">
-                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}">{{ recipe.name }}</a>
-                </li>
+                <div class="recipe">
+                    <h2>{{ recipe.name }}</h2>
+                    <img src="{{ url_for('static', filename=recipe.image) }}" alt="{{ recipe.name }}" style="width: 200px; height: 200px;">
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}">View Recipe</a>
+                </div>
             {% endfor %}
-        </ul>
-        <a href="{{ url_for('logout') }}" class="btn btn-danger mt-3">Logout</a>
+        {% else %}
+            <p>No recipes found. Please try adjusting your search or filter criteria.</p>
+        {% endif %}
     </div>
 </body>
 </html>

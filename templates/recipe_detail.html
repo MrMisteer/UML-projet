@@ -6,10 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ recipe.name }}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="container mt-5">
         <h1>{{ recipe.name }}</h1>
+        <img src="{{ url_for('static', filename=recipe.image) }}" alt="{{ recipe.name }}" style="width: 300px; height: 300px;">
         <h3>Ingredients</h3>
         <p>{{ recipe.ingredients }}</p>
         <h3>Quantity</h3>
@@ -28,8 +30,36 @@
             <li>Eco Score: {{ recipe.eco_score }}</li>
         </ul>
         <h3>Allergies</h3>
-        <p>{{ recipe.allergies }}</p>
+        <p>{{ recipe.allergens}}</p>
+          <!-- Button to add recipe to favorites -->
+        <form method="POST" action="{{ url_for('add_to_favorites', recipe_id=recipe.id) }}">
+            <button type="submit">Add to Favorites</button>
+        </form>
         <a href="{{ url_for('home') }}" class="btn btn-secondary mt-3">Back to Home</a>
+            <!-- Link to view favorites -->
+        <a href="{{ url_for('favorites') }}">View Favorites</a>
     </div>
+
+    <!-- Hidden data attribute for flash message -->
+    <div id="flash-message" data-flash-message="{% with messages = get_flashed_messages() %}{% if messages %}{{ messages[0] }}{% endif %}{% endwith %}"></div>
+
+    <!-- JavaScript to show flash messages in a SweetAlert popup -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get the flash message from the data attribute
+            var flashMessage = document.getElementById("flash-message").getAttribute("data-flash-message");
+
+            // If a message exists, show it in a SweetAlert popup
+            if (flashMessage) {
+                var messageType = flashMessage.includes('successfully') ? 'success' : 'error';  // Check if it's a success or error message
+                Swal.fire({
+                    title: messageType === 'success' ? 'Success' : 'Alert',
+                    text: flashMessage,
+                    icon: messageType,
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+    </script>
 </body>
 </html>

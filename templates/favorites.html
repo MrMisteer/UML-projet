@@ -3,21 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Favorites</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <h1>Login</h1>
+    <h1>Your Favorite Recipes</h1>
 
-    <form method="POST" action="/login">
-        <input type="text" name="username" placeholder="Username" required><br><br>
-        <input type="password" name="password" placeholder="Password" required><br><br>
+    <!-- List of favorite recipes -->
+    <div>
+        {% if favorites %}
+            {% for recipe in favorites %}
+                <div class="recipe">
+                    <h2>{{ recipe.name }}</h2>
+                    <img src="{{ url_for('static', filename=recipe.image) }}" alt="{{ recipe.name }}" style="width: 200px; height: 200px;">
+                    <p>{{ recipe.description }}</p>
+                    <a href="{{ url_for('recipe_detail', recipe_id=recipe.id) }}">View Recipe</a>
+                    <!-- Button to remove from favorites -->
+                    <form method="POST" action="{{ url_for('remove_from_favorites', recipe_id=recipe.id) }}">
+                        <button type="submit">Remove from Favorites</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>You have no favorite recipes yet.</p>
+        {% endif %}
+    </div>
 
-        <button type="submit">Login</button>
-    </form>
+    <!-- Link to go back to home -->
+    <a href="{{ url_for('home') }}">Back to Home</a>
 
-    <a href="/forgot_password">Forgot Password?</a>
-    <a href="/signup">Sign up</a>
     <!-- Hidden data attribute for flash message -->
     <div id="flash-message" data-flash-message="{% with messages = get_flashed_messages() %}{% if messages %}{{ messages[0] }}{% endif %}{% endwith %}"></div>
 
